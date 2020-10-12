@@ -47,6 +47,7 @@ typedef  struct
 	int currentCount;
 	int lkpTime;
 	int typeTime;
+	bool wasTap;
 	bool wasLkp;
 	bool wasPressed;
 	bool wasReleased;
@@ -94,6 +95,9 @@ bool wasLkp(pin_t button);
  * @return Configure succeed false if there was an error
  */
 bool buttonConfiguration(pin_t button, int type,int time);
+
+
+bool wasTap(pin_t button);
 
 
 #endif /* BUTTON_H_ */
