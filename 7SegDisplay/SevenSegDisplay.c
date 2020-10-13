@@ -104,6 +104,8 @@ bool SevenSegDisplay_BlinkCharacter(uint8_t digit)
 		for(count=0; count<SCREEN_SIZE; count++)
 		{
 			screen[count].blink=false;
+			screen[count].blinkCounter = BLINK_TIME;
+			screen[count].blinkState = true;
 		}
 		//if I want to put a digit to blink
 		if(digit!=RESET_BLINK)
