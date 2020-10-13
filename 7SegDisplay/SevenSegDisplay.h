@@ -62,10 +62,20 @@ typedef  struct
  * FUNCTION PROTOTYPES WITH GLOBAL SCOPE
  ******************************************************************************/
 
+/**
+ * @brief Initialize 7 Segment Display driver
+ */
 bool SevenSegDisplay_Init(void);
 
+/**
+ * @brief Set a character in a display position
+ * @param screen_char: screen position, new_char: character to print
+ */
 void SevenSegDisplay_ChangeCharacter(uint8_t screen_char, uint8_t new_char);
 
+/*
+ * @brief Clean screen
+ */
 void SevenSegDisplay_EraseScreen(void);
 
 /**
@@ -82,13 +92,11 @@ bool SevenSegDisplay_BlinkScreen(bool state);
  */
 bool SevenSegDisplay_BlinkCharacter(uint8_t digit);
 
+/**
+ * @brief Change display brightness between MAX, MID, MIN
+ * @param new_bright: brightness to set
+ */
 void SevenSegDisplay_SetBright(bright_t new_bright);
-
-//bool SevenSegDisplay_BlinkCharacter(unit8_t digit);
-
-//bool SevenSegDisplay_ShiftLeft(void);
-
-//bool SevenSegDisplay_ShiftRight(void);
 
 
 #endif /* SEVENSEGDISPLAY_H_ */
