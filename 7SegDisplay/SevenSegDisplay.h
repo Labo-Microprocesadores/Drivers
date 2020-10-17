@@ -73,6 +73,12 @@ bool SevenSegDisplay_Init(void);
  */
 void SevenSegDisplay_ChangeCharacter(uint8_t screen_char, uint8_t new_char);
 
+/**
+ * @brief Write display backbuffer
+ * @param new_chars: new characters to print, amount: amount of characters to write
+ * 		  offset: position in the back buffer to write
+ */
+void SevenSegDisplay_WriteBuffer(uint8_t new_chars[], uint8_t amount, uint8_t offset);
 /*
  * @brief Clean screen
  */
@@ -98,5 +104,15 @@ bool SevenSegDisplay_BlinkCharacter(uint8_t digit);
  */
 void SevenSegDisplay_SetBright(bright_t new_bright);
 
+/**
+ * @brief Animate display movement to right or left
+ * @param moves: amount of digit to swipe, positive=right, negative=left;
+ * 		  time: time to swipe 1 character, expressed in milliseconds
+ */
+void SevenSegDisplay_Swipe(int8_t moves);
 
+/**
+ * @set screen position in backbuffer
+ */
+void SevenSegDisplay_SetPos(uint8_t pos);
 #endif /* SEVENSEGDISPLAY_H_ */

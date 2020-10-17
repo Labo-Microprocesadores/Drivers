@@ -20,7 +20,6 @@
 #define BUFFER_LEN 		(2*WORD_LONG*CHAR_LONG)
 #define MAX_DATA_LEN 	37
 
-
 /*************************************************
  *  	LOCAL FUNCTION DECLARATION
  ************************************************/
@@ -188,7 +187,7 @@ uint16_t find_fs(uint16_t ss)
 
 		if(data == 0xD)
 		{
-			return i*CHAR_LONG + ss;
+			return (i+1)*CHAR_LONG + ss;
 		}
 	}
 	return 0;
@@ -206,7 +205,7 @@ uint16_t find_es(uint16_t fs)
 
 		if(data == 0x1F)
 		{
-			return i*CHAR_LONG+fs;
+			return (i+1)*CHAR_LONG+fs;
 		}
 	}
 	return 0;

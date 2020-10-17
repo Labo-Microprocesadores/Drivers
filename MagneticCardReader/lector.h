@@ -55,5 +55,4 @@ bool Lector_Event(void);
  */
 bool Lector_GetData(card_t * data);
 
-
 #endif /* LECTOR_H_ */
