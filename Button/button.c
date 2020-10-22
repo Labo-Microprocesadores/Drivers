@@ -3,19 +3,18 @@
   @brief    Button configurations
   @author   Grupo 2
  ******************************************************************************/
-
-
+/*******************************************************************************
+ * INCLUDE HEADER FILES
+ ******************************************************************************/
 #include "button.h"
 #include "SysTick.h"
 #include "gpio.h"
-
 
 /*******************************************************************************
  * FUNCTION PROTOTYPES FOR PRIVATE FUNCTIONS WITH FILE LEVEL SCOPE
  ******************************************************************************/
 
 static Button_t buttons[BUTTON_NUM];
-
 bool var = false;
 
 /*******************************************************************************
@@ -28,10 +27,11 @@ static void systick_callback(void)
 {
 
 	int i;
-
+	//for the buttons array
 	for( i=0 ; i<BUTTON_NUM ; i++ )
 	{
 		bool pinState = !gpioRead(buttons[i].pin);
+		//if the was pressed and the button is not been pressed now
 		if( buttons[i].lastState && !pinState)
 		{
 			buttons[i].wasTap = (buttons[i].currentCount < buttons[i].lkpTime);
@@ -40,12 +40,15 @@ static void systick_callback(void)
 			buttons[i].currentCount = 0;
 			buttons[i].lastState = false;
 		}
+		// if the button is been pressed now
 		else if( pinState )
 		{
+			//if the button is a long key press button and the currentCount is equal to the long key press time.
 			if( buttons[i].typefunction == LKP && (++buttons[i].currentCount) == buttons[i].lkpTime )
 			{
 				buttons[i].wasLkp = true;
 			}
+			//if the button is a TYPEMATIC and the currentCount is equal to TYPEMATIC time.
 			else if( buttons[i].typefunction == TYPEMATIC && ++buttons[i].currentCount == buttons[i].typeTime)
 			{
 				 buttons[i].wasPressed= true;
@@ -72,7 +75,7 @@ static void systick_callback(void)
 void buttonsInit(void)
 {
 	//add buttons to .h
-	SysTick_AddCallback(&systick_callback, 50*SYSTICK_ISR_PERIOD_S);
+	SysTick_AddCallback(&systick_callback, 50);
 }
 
 
@@ -89,7 +92,7 @@ bool wasPressed(pin_t button)
 			return aux ;
 		}
 	}
-
+	return false;
 }
 
 bool wasTap(pin_t button)
@@ -105,6 +108,7 @@ bool wasTap(pin_t button)
 			return aux ;
 		}
 	}
+	return false;
 }
 
 
@@ -120,7 +124,6 @@ bool wasReleased(pin_t button)
 					bool aux =buttons[count].wasReleased;
 					if(aux)
 						buttons[count].wasReleased = false;
-
 					return aux ;
 				}
 			}
@@ -130,6 +133,7 @@ bool wasReleased(pin_t button)
 		var=false;
 		return false;
 	}
+	return false;
 }
 
 bool wasLkp(pin_t button)
@@ -147,6 +151,7 @@ bool wasLkp(pin_t button)
 			return aux ;
 		}
 	}
+	return false;
 }
 
 
@@ -171,6 +176,7 @@ bool buttonConfiguration(pin_t button, int type, int time)
 	{
 		if(buttons[count].pin==0)
 		{
+			gpioMode(button,INPUT);
 			buttons[count].pin=button;
 			buttons[count].typefunction=type;
 			if(type == LKP)

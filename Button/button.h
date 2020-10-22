@@ -1,5 +1,5 @@
 /***************************************************************************//**
-  @file     Button.c
+  @file     Button.h
   @brief    Button configurations
   @author   Grupo 2
  ******************************************************************************/
@@ -26,9 +26,9 @@
  * ENUMERATIONS AND STRUCTURES AND TYPEDEFS
  ******************************************************************************/
 
-	enum type{NORMAL,TYPEMATIC, LKP};
+	enum type{NORMAL_E,TYPEMATIC, LKP};
 
-  /* Structure to store the variables needed to define a button object.
+  /** Structure to store the variables needed to define a button object.
  * @variable pin number of the pin used for this button 
  * @variable enum with the working modes (NORMAL,TYPEMATIC, LKP)
  * @variable last state, variable that records the las state of the button 
@@ -96,7 +96,12 @@ bool wasLkp(pin_t button);
  */
 bool buttonConfiguration(pin_t button, int type,int time);
 
-
+/**
+ * @brief function that goes through all elements in the buttons array and when it finds the button that was passed as an argument
+ * 		 return the value of wasTap for the button
+ * @param button, button's pin number
+ * @return the value of wasTap
+ */
 bool wasTap(pin_t button);
 
 
